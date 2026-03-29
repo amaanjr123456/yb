@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Bliss Pro | Admin</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Travel Bliss | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --primary: #c4763a;
             --primary-light: #fdf2e9;
-            --bg: #faf9f6;
+            --bg: #f8f7f4;
             --card-bg: #ffffff;
             --text-main: #1a1a1a;
             --text-muted: #757575;
@@ -18,9 +18,8 @@
             --success: #21a366;
             --warning: #f1a817;
             --danger: #df3c3c;
-            --glass: rgba(255, 255, 255, 0.8);
-            --shadow: 0 4px 20px rgba(0,0,0,0.03);
             --radius: 16px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.04);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,78 +28,36 @@
             background-color: var(--bg);
             color: var(--text-main);
             font-family: 'Plus Jakarta Sans', sans-serif;
-            display: flex;
             min-height: 100vh;
+            padding: 40px 20px;
         }
 
-        /* SIDE NAV */
-        nav {
-            width: 260px;
-            background: var(--card-bg);
-            border-right: 1px solid var(--border);
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            height: 100vh;
-        }
-
-        .nav-logo {
-            font-weight: 800;
-            font-size: 20px;
-            color: var(--primary);
-            margin-bottom: 40px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-item {
-            padding: 12px 16px;
-            border-radius: 12px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-weight: 600;
-            margin-bottom: 8px;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .nav-item.active, .nav-item:hover {
-            background: var(--primary-light);
-            color: var(--primary);
-        }
-
-        /* MAIN CONTENT */
         main {
-            margin-left: 260px;
-            flex: 1;
-            padding: 40px;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
-        .header-glass {
-            position: sticky;
-            top: 20px;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            padding: 20px 30px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
+        /* HEADER */
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            z-index: 10;
+            margin-bottom: 40px;
+            background: var(--card-bg);
+            padding: 24px 32px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
         }
+
+        .logo-text { font-size: 22px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
 
         /* STATS */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .stat-box {
@@ -109,25 +66,25 @@
             border-radius: var(--radius);
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
-            transition: 0.3s;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
         }
 
         .stat-box:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .stat-val { font-size: 32px; font-weight: 800; margin-top: 8px; }
+        .stat-label { font-size: 12px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        .stat-val { font-size: 28px; font-weight: 800; margin: 10px 0 5px; }
-        .stat-label { font-size: 13px; color: var(--text-muted); font-weight: 500; }
-
-        /* LISTING */
-        .table-container {
+        /* TABLE AREA */
+        .table-card {
             background: var(--card-bg);
             border-radius: var(--radius);
             border: 1px solid var(--border);
-            overflow: hidden;
             box-shadow: var(--shadow);
+            overflow: hidden;
         }
 
-        .list-header {
-            padding: 20px 30px;
+        .table-toolbar {
+            padding: 20px 32px;
             border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
@@ -136,31 +93,34 @@
 
         .booking-row {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 120px 60px;
-            padding: 16px 30px;
-            align-items: center;
+            grid-template-columns: 1.5fr 1fr 1fr 120px 40px;
+            padding: 18px 32px;
             border-bottom: 1px solid var(--border);
+            align-items: center;
             cursor: pointer;
             transition: 0.2s;
         }
 
         .booking-row:hover { background: #fafafa; }
+        .row-name { font-weight: 700; font-size: 15px; }
+        .row-meta { font-size: 13px; color: var(--text-muted); }
 
         .status-pill {
             padding: 6px 12px;
             border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
+            font-size: 10px;
+            font-weight: 800;
             text-transform: uppercase;
             text-align: center;
+            letter-spacing: 0.3px;
         }
 
         .pill-accepted { background: #e6f7ef; color: var(--success); }
         .pill-pending { background: #fff8e6; color: var(--warning); }
         .pill-declined { background: #fdeaea; color: var(--danger); }
 
-        /* DRAWER SYSTEM */
-        .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.1); backdrop-filter: blur(4px); z-index: 100; }
+        /* DRAWER */
+        .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.2); backdrop-filter: blur(4px); z-index: 100; }
         .drawer {
             position: fixed; right: -450px; top: 0; bottom: 0; width: 450px;
             background: white; z-index: 101; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -168,75 +128,54 @@
         }
         .drawer.open { right: 0; }
         .overlay.open { display: block; }
+        .drawer-close { position: absolute; top: 20px; right: 20px; border: none; background: none; font-size: 20px; cursor: pointer; color: #ccc; }
 
-        .drawer-title { font-size: 24px; font-weight: 800; margin-bottom: 30px; }
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .info-item { margin-bottom: 15px; }
-        .info-label { font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-bottom: 5px; }
-        .info-val { font-weight: 600; font-size: 15px; }
+        .info-label { font-size: 10px; color: var(--text-muted); font-weight: 800; text-transform: uppercase; margin-bottom: 4px; }
+        .info-val { font-weight: 600; font-size: 16px; margin-bottom: 20px; }
 
-        .action-btns { margin-top: 40px; display: flex; gap: 10px; }
-        .btn {
-            flex: 1; padding: 14px; border-radius: 12px; border: 1px solid var(--border);
-            font-weight: 700; cursor: pointer; transition: 0.2s; font-family: inherit;
-        }
+        .btn-group { display: flex; gap: 10px; margin-top: 30px; }
+        .btn { flex: 1; padding: 14px; border-radius: 12px; font-weight: 700; cursor: pointer; border: 1px solid var(--border); font-family: inherit; }
         .btn-primary { background: var(--primary); color: white; border: none; }
-        .btn-outline { background: white; color: var(--text-main); }
         .btn-danger { background: #fff5f5; color: var(--danger); border: none; margin-top: 10px; width: 100%; }
 
-        /* TOAST */
-        #toast {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(20px);
-            background: var(--text-main); color: white; padding: 12px 24px; border-radius: 50px;
-            font-weight: 600; font-size: 14px; opacity: 0; transition: 0.3s; z-index: 1000;
-        }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1a1a1a; color: white; padding: 12px 24px; border-radius: 50px; font-size: 14px; opacity: 0; transition: 0.3s; z-index: 1000; }
         #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="nav-logo"><span>✈️</span> Travel Bliss</div>
-        <a href="#" class="nav-item active">Dashboard</a>
-        <a href="#" class="nav-item">Analytics</a>
-        <a href="#" class="nav-item">Messages</a>
-        <a href="#" class="nav-item">Settings</a>
-    </nav>
-
     <main>
-        <div class="header-glass">
-            <div>
-                <h1 style="font-size: 20px; font-weight: 800;">Welcome Back, Admin</h1>
-                <p style="font-size: 13px; color: var(--text-muted);">Manage your global travel bookings.</p>
+        <div class="header">
+            <div class="logo-text">✈️ TRAVEL BLISS ADMIN</div>
+            <div style="display:flex; gap:15px;">
+                <input type="text" id="search" placeholder="Find passenger..." oninput="handleSearch()" 
+                       style="padding:10px 16px; border-radius:10px; border:1px solid var(--border); outline:none; width:280px;">
+                <button onclick="fetchData()" style="padding:10px 20px; border-radius:10px; background:var(--primary-light); border:none; color:var(--primary); font-weight:700; cursor:pointer;">Refresh</button>
             </div>
-            <input type="text" id="searchInput" placeholder="Search passenger..." 
-                   oninput="handleSearch()"
-                   style="padding: 10px 15px; border-radius: 10px; border: 1px solid var(--border); width: 250px; outline: none;">
         </div>
 
         <div class="stats-grid">
             <div class="stat-box" onclick="fetchData()">
-                <div class="stat-label">Total Bookings</div>
-                <div class="stat-val" id="count-all">0</div>
+                <div class="stat-label">Total Volume</div>
+                <div class="stat-val" id="c-all">0</div>
             </div>
             <div class="stat-box">
                 <div class="stat-label">Confirmed</div>
-                <div class="stat-val" id="count-accepted" style="color: var(--success);">0</div>
+                <div class="stat-val" id="c-accepted" style="color: var(--success);">0</div>
             </div>
             <div class="stat-box">
-                <div class="stat-label">In Review</div>
-                <div class="stat-val" id="count-pending" style="color: var(--warning);">0</div>
+                <div class="stat-label">Pending</div>
+                <div class="stat-val" id="c-pending" style="color: var(--warning);">0</div>
             </div>
             <div class="stat-box">
-                <div class="stat-label">Cancelled</div>
-                <div class="stat-val" id="count-declined" style="color: var(--danger);">0</div>
+                <div class="stat-label">Declined</div>
+                <div class="stat-val" id="c-declined" style="color: var(--danger);">0</div>
             </div>
         </div>
 
-        <div class="table-container">
-            <div class="list-header">
-                <span style="font-weight: 800;">Recent Requests</span>
-                <button onclick="fetchData()" style="border:none; background:none; cursor:pointer; color:var(--primary); font-weight:700;">Refresh List</button>
+        <div class="table-card">
+            <div class="table-toolbar">
+                <span style="font-weight: 800; font-size: 18px;">Live Bookings</span>
             </div>
             <div id="booking-list">
                 </div>
@@ -245,67 +184,86 @@
 
     <div class="overlay" id="overlay" onclick="closeDrawer()"></div>
     <div class="drawer" id="drawer">
-        <div class="drawer-title" id="d-name">Passenger Name</div>
-        <div class="info-grid" id="d-grid">
+        <button class="drawer-close" onclick="closeDrawer()">✕</button>
+        <h2 id="d-name" style="margin-bottom: 30px; font-weight: 800;">---</h2>
+        
+        <div id="d-content">
             </div>
-        <div class="action-btns">
+
+        <div class="btn-group">
             <button class="btn btn-primary" onclick="updateStatus('accepted')">Approve</button>
-            <button class="btn btn-outline" onclick="updateStatus('pending')">Pending</button>
+            <button class="btn" onclick="updateStatus('pending')">Pending</button>
         </div>
-        <button class="btn btn-outline" style="margin-top:10px;" onclick="updateStatus('declined')">Reject Booking</button>
-        <button class="btn btn-danger" onclick="deleteBooking()">Delete Record Permanently</button>
+        <button class="btn" style="margin-top:10px; color: var(--danger);" onclick="updateStatus('declined')">Reject Booking</button>
+        <button class="btn btn-danger" onclick="deleteBooking()">Delete Permanently</button>
     </div>
 
     <div id="toast"></div>
 
     <script>
         let bookings = [];
-        let currentId = null;
+        let activeId = null;
+
+        // --- DATE FORMATTER FUNCTION ---
+        function formatDate(dateString) {
+            if (!dateString) return "No Date";
+            // Splits 2026-03-29T00:00:00.000Z at 'T' and takes the first part
+            const dateOnly = dateString.split('T')[0]; 
+            const dateObj = new Date(dateOnly);
+            
+            // Returns: March 29, 2026
+            return dateObj.toLocaleDateString('en-US', { 
+                month: 'long', 
+                day: 'numeric', 
+                year: 'numeric' 
+            });
+        }
 
         async function fetchData() {
             try {
                 const res = await fetch('/api/bookings');
                 bookings = await res.json();
                 render(bookings);
-                updateCounters();
-            } catch (e) { showToast("Failed to load data."); }
+                updateStats();
+            } catch (e) { showToast("Network Error"); }
         }
 
-        function updateCounters() {
-            document.getElementById('count-all').innerText = bookings.length;
-            document.getElementById('count-accepted').innerText = bookings.filter(b => b.status === 'accepted').length;
-            document.getElementById('count-pending').innerText = bookings.filter(b => b.status === 'pending').length;
-            document.getElementById('count-declined').innerText = bookings.filter(b => b.status === 'declined').length;
+        function updateStats() {
+            document.getElementById('c-all').innerText = bookings.length;
+            document.getElementById('c-accepted').innerText = bookings.filter(b => b.status === 'accepted').length;
+            document.getElementById('c-pending').innerText = bookings.filter(b => b.status === 'pending').length;
+            document.getElementById('c-declined').innerText = bookings.filter(b => b.status === 'declined').length;
         }
 
         function render(data) {
             const list = document.getElementById('booking-list');
             list.innerHTML = data.map(b => `
                 <div class="booking-row" onclick="openDrawer('${b.id}')">
-                    <div style="font-weight: 700;">${b.name}</div>
-                    <div style="color: var(--text-muted); font-size: 13px;">${b.place}</div>
-                    <div style="font-size: 13px;">${b.travel}</div>
+                    <div class="row-name">${b.name}</div>
+                    <div class="row-meta">${b.place}</div>
+                    <div class="row-meta">${formatDate(b.travel)}</div>
                     <div class="status-pill pill-${b.status}">${b.status}</div>
-                    <div style="color: var(--border); text-align: right;">→</div>
+                    <div style="color: #ddd; text-align: right;">→</div>
                 </div>
             `).join('');
         }
 
         window.handleSearch = () => {
-            const q = document.getElementById('searchInput').value.toLowerCase();
+            const q = document.getElementById('search').value.toLowerCase();
             const filtered = bookings.filter(b => b.name.toLowerCase().includes(q) || b.id.toLowerCase().includes(q));
             render(filtered);
         };
 
         window.openDrawer = (id) => {
             const b = bookings.find(x => x.id === id);
-            currentId = id;
+            activeId = id;
             document.getElementById('d-name').innerText = b.name;
-            document.getElementById('d-grid').innerHTML = `
-                <div class="info-item"><div class="info-label">Booking ID</div><div class="info-val">${b.id}</div></div>
-                <div class="info-item"><div class="info-label">Phone</div><div class="info-val">${b.phone}</div></div>
-                <div class="info-item"><div class="info-label">Destination</div><div class="info-val">${b.place}</div></div>
-                <div class="info-item"><div class="info-label">Status</div><div class="info-val" style="text-transform:capitalize;">${b.status}</div></div>
+            document.getElementById('d-content').innerHTML = `
+                <div class="info-label">Booking ID</div><div class="info-val">${b.id}</div>
+                <div class="info-label">Phone</div><div class="info-val">${b.phone}</div>
+                <div class="info-label">Destination</div><div class="info-val">${b.place}</div>
+                <div class="info-label">Travel Date</div><div class="info-val">${formatDate(b.travel)}</div>
+                <div class="info-label">Notes</div><div class="info-val" style="font-style:italic;">${b.notes || 'None'}</div>
             `;
             document.getElementById('drawer').classList.add('open');
             document.getElementById('overlay').classList.add('open');
@@ -317,20 +275,20 @@
         };
 
         window.updateStatus = async (s) => {
-            await fetch(`/api/bookings/${currentId}`, {
+            await fetch(`/api/bookings/${activeId}`, {
                 method: 'PATCH',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({status: s})
             });
-            showToast("Booking " + s);
+            showToast("Updated to " + s);
             fetchData();
             closeDrawer();
         };
 
         window.deleteBooking = async () => {
-            if(!confirm("Are you sure? This is permanent.")) return;
-            await fetch(`/api/bookings/${currentId}`, {method: 'DELETE'});
-            showToast("Deleted record");
+            if(!confirm("Permenantly delete this record?")) return;
+            await fetch(`/api/bookings/${activeId}`, {method: 'DELETE'});
+            showToast("Record Deleted");
             fetchData();
             closeDrawer();
         };
