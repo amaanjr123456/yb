@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// 1. Fixed Connection Logic for TiDB Cloud
+// 1. Connection Pool Logic
 const db = mysql.createPool({
   uri: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: true },
@@ -19,8 +19,9 @@ const db = mysql.createPool({
 
 console.log("MySQL Pool Created for TiDB Cloud");
 
-app.get("/", (req, res) => {
-  res.send("Server is running! Use /bookings to see data.");
+// 2. ROOT ROUTE (Good for checking if the server is alive)
+app.get("/api", (req, res) => {
+  res.send("Server is running! API routes are active.");
 });
 
 function generateBookingId() {
@@ -28,8 +29,9 @@ function generateBookingId() {
   return `TBK-${digits}`;
 }
 
-// 2. Updated to use 'travel_bookings' table name
-app.post("/book", (req, res) => {
+// 3. UPDATED ROUTES (Added /api prefix to match Vercel rewrites)
+
+app.post("/api/book", (req, res) => {
   const { fullname, email, phone, gender, date, destination, notes } = req.body;
   const customId = generateBookingId(); 
 
@@ -52,7 +54,7 @@ app.post("/book", (req, res) => {
   );
 });
 
-app.get("/bookings", (req, res) => {
+app.get("/api/bookings", (req, res) => {
   const sql = `SELECT id, fullname AS name, phone, gender, destination AS place, 
                travel_date AS travel, status, notes FROM travel_bookings ORDER BY id DESC`;
   
@@ -65,7 +67,7 @@ app.get("/bookings", (req, res) => {
   });
 });
 
-app.patch("/bookings/:id", (req, res) => {
+app.patch("/api/bookings/:id", (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
   const sql = "UPDATE travel_bookings SET status = ? WHERE id = ?";
@@ -78,7 +80,7 @@ app.patch("/bookings/:id", (req, res) => {
   });
 });
 
-app.get("/check-status/:id", (req, res) => {
+app.get("/api/check-status/:id", (req, res) => {
   const { id } = req.params;
   const sql = "SELECT fullname, destination, status FROM travel_bookings WHERE id = ?";
   db.query(sql, [id], (err, result) => {
@@ -91,7 +93,7 @@ app.get("/check-status/:id", (req, res) => {
   });
 });
 
-app.delete("/bookings/:id", (req, res) => {
+app.delete("/api/bookings/:id", (req, res) => {
   const { id } = req.params;
   const sql = "DELETE FROM travel_bookings WHERE id = ?";
   db.query(sql, [id], (err, result) => {
