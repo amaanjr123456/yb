@@ -1,5 +1,4 @@
-const API_URL = "http://localhost:3000";
-
+const API_URL = "/api";
 // --- PART 1: SEND BOOKING TO SERVER ---
 document.getElementById('bookingform').addEventListener('submit', async (e) => {
   e.preventDefault();
