@@ -9,7 +9,9 @@
     { "src": "styles.css", "use": "@vercel/static" }
   ],
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "api/index.js" },
-    { "source": "/admin", "destination": "admin_booking/admin.html" }
+    { "source": "/api/book", "destination": "/api/index.js" },
+    { "source": "/api/bookings", "destination": "/api/index.js" },
+    { "source": "/api/check-status/(.*)", "destination": "/api/index.js" },
+    { "source": "/api/bookings/(.*)", "destination": "/api/index.js" }
   ]
 }
